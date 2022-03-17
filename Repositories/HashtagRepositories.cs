@@ -27,8 +27,8 @@ public class HashTagsRepository : BaseRepository, IHashTagsRepository
     public async Task<HashTags> Create(HashTags Item)
     {
        var query = $@"INSERT INTO ""{TableNames.hash_tags}"" 
-        (hash_id, hash_name) 
-        VALUES (@HashId, @HashName) 
+        ( hash_name) 
+        VALUES ( @HashName) 
         RETURNING *";
 
         using (var con = NewConnection)

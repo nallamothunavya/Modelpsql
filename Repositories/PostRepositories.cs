@@ -29,8 +29,8 @@ public class PostsRepository : BaseRepository, IPostsRepository
     public async Task<Posts> Create(Posts Item)
     {
         var query = $@"INSERT INTO ""{TableNames.post}"" 
-        (post_id, post_type) 
-        VALUES (@PostId, @PostType) 
+        ( post_type) 
+        VALUES ( @PostType) 
         RETURNING *";
 
         using (var con = NewConnection)
