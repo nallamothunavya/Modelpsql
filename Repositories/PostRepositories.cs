@@ -9,7 +9,7 @@ namespace Media.Repositories;
 public interface IPostsRepository
 {
     Task<Posts> Create(Posts Item);
- //  Task <bool> Update(Posts Item);
+ 
     Task<bool> Delete(long PostId);
     Task<Posts> GetById(long PostId);
     Task<List<Posts>> GetList();

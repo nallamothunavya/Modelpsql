@@ -10,7 +10,7 @@ public interface IUsersRepository
 {
     Task<Users> Create(Users Item);
     Task<bool> Update(Users Item);
-    // Task<bool> Delete(long EmployeeNumber);
+    
     Task<Users> GetById(long UserId);
     Task<List<Users>> GetList();
 
@@ -27,8 +27,8 @@ public class UsersRepository : BaseRepository, IUsersRepository
     public async Task<Users> Create(Users Item)
     {
         var query = $@"INSERT INTO ""{TableNames.users}"" 
-        (user_id, user_name, mobile) 
-        VALUES (@UserId, @UserName, @Mobile) 
+        (user_name, mobile) 
+        VALUES ( @UserName, @Mobile) 
         RETURNING *";
 
         using (var con = NewConnection)

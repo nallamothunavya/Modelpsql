@@ -9,7 +9,7 @@ namespace Media.Repositories;
 public interface ILikesRepository
 {
     Task<Likes> Create(Likes Item);
- //  Task <bool> Update(Posts Item);
+
     Task<bool> Delete(long LikeId);
     Task<Likes> GetById(long LikeId);
     Task<List<Likes>> GetList();
