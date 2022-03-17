@@ -8,7 +8,7 @@ namespace Media.Repositories;
 
 public interface ILikesRepository
 {
-    Task<Likes> Create(Likes Item);
+    
 
     Task<bool> Delete(long LikeId);
     Task<Likes> GetById(long LikeId);
@@ -25,19 +25,8 @@ public class LikesRepository : BaseRepository, ILikesRepository
     }
 
 
-    public async Task<Likes> Create(Likes Item)
-    {
-       var query = $@"INSERT INTO ""{TableNames.likes}"" 
-        (like_id) 
-        VALUES (@LikeId) 
-        RETURNING *";
-
-        using (var con = NewConnection)
-        {
-            var res = await con.QuerySingleOrDefaultAsync<Likes>(query, Item);
-            return res;
-        }
-    }
+    
+    
 
     public async Task<bool> Delete(long LikeId)
     {

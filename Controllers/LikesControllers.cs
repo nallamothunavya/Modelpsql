@@ -46,21 +46,6 @@ public class LikesController : ControllerBase
         
     }
 
-    [HttpPost]
-    public async Task<ActionResult<LikesDTO>> CreateLikes([FromBody] LikesCreateDTO Data)
-    {
-       
-
-        var toCreateLikes = new Likes
-        {
-            LikeId = Data.LikeId,
-
-        };
-
-        var createdLikes = await _likes.Create(toCreateLikes);
-
-        return StatusCode(StatusCodes.Status201Created, createdLikes.asDto);
-    }
 
    
 

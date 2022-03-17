@@ -15,15 +15,5 @@ public record LikesDTO
 
 }
 
-public record LikesCreateDTO
-{
-    [JsonPropertyName("like_id")]
-    public long LikeId { get; set; }
 
-    [JsonPropertyName("post_id")]
-    public string PostId { get; set; }
-
-
-
-}
 
