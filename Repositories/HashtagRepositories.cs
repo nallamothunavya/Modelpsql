@@ -15,6 +15,8 @@ public interface IHashTagsRepository
 
     Task<List<HashTags>> GetListByPostId(long PostId);
 
+    Task<List<HashTags>> GetListByLikeId(long LikeId);
+
 }
 public class HashTagsRepository : BaseRepository, IHashTagsRepository
 {
@@ -71,6 +73,18 @@ public class HashTagsRepository : BaseRepository, IHashTagsRepository
 
         
         return res;
+    }
+
+    public async Task<List<HashTags>> GetListByLikeId(long LikeId)
+    {
+        var query = $@"SELECT * FROM ""{TableNames.hash_tags}""
+       
+       WHERE hash_id = @LikeId";
+
+       using(var con = NewConnection){
+           var res = (await con.QueryAsync<HashTags>(query, new {LikeId})).AsList();
+           return res;
+       }
     }
 
     public async Task<List<HashTags>> GetListByPostId(long PostId)

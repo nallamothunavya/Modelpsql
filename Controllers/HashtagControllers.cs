@@ -13,13 +13,18 @@ public class HashTagsController : ControllerBase
     private readonly IHashTagsRepository _hash_tags;
    private readonly IPostsRepository _posts;
 
+   private readonly IUsersRepository _users;
+
+   private readonly ILikesRepository _likes;
+
     public HashTagsController(ILogger<HashTagsController> logger,
-    IHashTagsRepository hash_tags,IPostsRepository posts)
+    IHashTagsRepository hash_tags,IPostsRepository posts,IUsersRepository users,ILikesRepository likes)
     {
         _logger = logger;
         _hash_tags = hash_tags;
-     
-      _posts =posts;
+        _posts =posts;
+        _users = users;
+        _likes = likes;
     }
 
    
@@ -47,6 +52,8 @@ public class HashTagsController : ControllerBase
         var dto = hash_tags.asDto;
 
         dto.Posts = (await _posts.GetListByHashTagsId(hash_id)).Select(x => x.asDto).ToList();
+        dto.Users = (await _users.GetListByHashTagsId(hash_id)).Select(x => x.asDto).ToList();
+        dto.Likes = (await _likes.GetListByHashTagsId(hash_id)).Select(x => x.asDto).ToList();
 
         return Ok(dto);
     }

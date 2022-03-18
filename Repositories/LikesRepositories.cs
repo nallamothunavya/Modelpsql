@@ -16,6 +16,10 @@ public interface ILikesRepository
 
     Task<List<Likes>> GetListByPostId(long PostId);
 
+    Task<List<Likes>> GetListByHashTagsId(long HashId);
+
+     Task<List<Likes>> GetListByUserId(long UserId);
+
 }
 public class LikesRepository : BaseRepository, ILikesRepository
 {
@@ -63,14 +67,38 @@ public class LikesRepository : BaseRepository, ILikesRepository
         return res;
     }
 
+    public async Task<List<Likes>> GetListByHashTagsId(long HashId)
+    {
+     var query = $@"SELECT * FROM ""{TableNames.likes}""
+       
+       WHERE like_id = @HashId";
+
+       using(var con = NewConnection){
+           var res = (await con.QueryAsync<Likes>(query, new {HashId})).AsList();
+           return res;
+       }
+    }
+
     public async Task<List<Likes>> GetListByPostId(long PostId)
     {
-         var query = $@"SELECT * FROM ""{TableNames.likes}""
+      var query = $@"SELECT * FROM ""{TableNames.likes}""
        
        WHERE like_id = @PostId";
 
        using(var con = NewConnection){
            var res = (await con.QueryAsync<Likes>(query, new {PostId})).AsList();
+           return res;
+       }
+    }
+
+    public async Task<List<Likes>> GetListByUserId(long UserId)
+    {
+       var query = $@"SELECT * FROM ""{TableNames.likes}""
+       
+       WHERE like_id = @UserId";
+
+       using(var con = NewConnection){
+           var res = (await con.QueryAsync<Likes>(query, new {UserId})).AsList();
            return res;
        }
     }

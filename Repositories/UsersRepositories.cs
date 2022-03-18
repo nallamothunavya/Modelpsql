@@ -16,6 +16,10 @@ public interface IUsersRepository
 
     Task<List<Users>> GetListByPostId(long PostId);
 
+     Task<List<Users>> GetListByHashTagsId(long HashId);
+
+      Task<List<Users>> GetListByLikeId(long LikeId);
+
 }
 public class UsersRepository : BaseRepository, IUsersRepository
 {
@@ -54,8 +58,7 @@ public class UsersRepository : BaseRepository, IUsersRepository
     {
         var query = $@"SELECT * FROM ""{TableNames.users}"" 
         WHERE user_id = @userId";
-        // SQL-Injection
-
+        
         using (var con = NewConnection)
             return await con.QuerySingleOrDefaultAsync<Users>(query, new { UserId });
     }
@@ -79,6 +82,30 @@ public class UsersRepository : BaseRepository, IUsersRepository
 
        using(var con = NewConnection){
            var res = (await con.QueryAsync<Users>(query, new {PostId})).AsList();
+           return res;
+       }
+    }
+
+    public async Task<List<Users>> GetListByHashTagsId(long HashId)
+    {
+       var query = $@"SELECT * FROM ""{TableNames.users}""
+       
+       WHERE user_id = @HashId";
+
+       using(var con = NewConnection){
+           var res = (await con.QueryAsync<Users>(query, new {HashId})).AsList();
+           return res;
+       }
+    }
+
+    public async Task<List<Users>> GetListByLikeId(long LikeId)
+    {
+      var query = $@"SELECT * FROM ""{TableNames.users}""
+       
+       WHERE user_id = @LikeId";
+
+       using(var con = NewConnection){
+           var res = (await con.QueryAsync<Users>(query, new {LikeId})).AsList();
            return res;
        }
     }

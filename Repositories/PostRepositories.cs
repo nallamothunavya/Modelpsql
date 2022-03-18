@@ -16,6 +16,8 @@ public interface IPostsRepository
 
     Task<List<Posts>> GetListByUserId(long UserId);
     Task<List<Posts>> GetListByHashTagsId(long HashId);
+
+    Task<List<Posts>> GetListByLikeId(long LikeId);
     
 
 }
@@ -87,15 +89,28 @@ public class PostsRepository : BaseRepository, IPostsRepository
       }
     }
 
-    public async Task<List<Posts>> GetListByUserId(long PostId)
+    public async Task<List<Posts>> GetListByLikeId(long LikeId)
+    {
+        
+       var query = $@"SELECT * FROM ""{TableNames.post}""
+       
+       WHERE post_id = @LikeId";
+
+       using(var con = NewConnection){
+           var res = (await con.QueryAsync<Posts>(query, new {LikeId})).AsList();
+           return res;
+       }
+    }
+
+    public async Task<List<Posts>> GetListByUserId(long UserId)
     {
        
        var query = $@"SELECT * FROM ""{TableNames.post}""
        
-       WHERE post_id = @PostId";
+       WHERE post_id = @UserId";
 
        using(var con = NewConnection){
-           var res = (await con.QueryAsync<Posts>(query, new {PostId})).AsList();
+           var res = (await con.QueryAsync<Posts>(query, new {UserId})).AsList();
            return res;
        }
     }

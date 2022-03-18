@@ -11,14 +11,22 @@ public class LikesController : ControllerBase
 {
     private readonly ILogger<LikesController> _logger;
     private readonly ILikesRepository _likes;
+
+    private readonly IPostsRepository _posts;
+
+    private readonly IHashTagsRepository _hashtags;
+
+    private readonly IUsersRepository _users;
    
 
     public LikesController(ILogger<LikesController> logger,
-    ILikesRepository likes)
+    ILikesRepository likes,IPostsRepository posts,IHashTagsRepository hashtags,IUsersRepository users)
     {
         _logger = logger;
         _likes = likes;
-      
+        _posts = posts;
+        _hashtags = hashtags;
+        _users = users;
     }
 
      [HttpGet]
@@ -33,15 +41,21 @@ public class LikesController : ControllerBase
     }
 
 
-        [HttpGet("{like_id}")]
+    [HttpGet("{like_id}")]
     public async Task<ActionResult<LikesDTO>> GetById([FromRoute] long like_id)
     {
         var likes = await _likes.GetById(like_id);
 
         if (likes is null)
-            return NotFound("No hash_tags found with given hash id");
+         return NotFound("No likes found with given like id");
 
-        return Ok (likes.asDto);
+         var dto = likes.asDto;
+
+         dto.Posts = (await _posts.GetListByLikeId(like_id)).Select(x => x.asDto).ToList();
+         dto.HashTags = (await _hashtags.GetListByLikeId(like_id)).Select(x => x.asDto).ToList();
+         dto.Users = (await _users.GetListByLikeId(like_id)).Select(x => x.asDto).ToList();
+
+        return Ok (dto);
 
         
     }

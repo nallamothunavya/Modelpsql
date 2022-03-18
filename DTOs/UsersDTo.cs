@@ -25,6 +25,12 @@ public record UsersDTO
      [JsonPropertyName("posts")]
     public List<PostsDTO> Posts { get; set; }
 
+    [JsonPropertyName("likes")]
+
+    public List<LikesDTO> Likes { get; set; }
+
+
+
 
 
 }

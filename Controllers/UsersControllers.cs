@@ -13,12 +13,15 @@ public class UsersController : ControllerBase
     private readonly IUsersRepository _users;
     private readonly IPostsRepository _posts;
 
+    private readonly ILikesRepository _likes;
+
     public UsersController(ILogger<UsersController> logger,
-    IUsersRepository users, IPostsRepository posts)
+    IUsersRepository users, IPostsRepository posts,ILikesRepository likes)
     {
         _logger = logger;
         _users = users;
-      _posts = posts;
+       _posts = posts;
+       _likes = likes;
     }
 
     [HttpGet]
@@ -43,6 +46,8 @@ public class UsersController : ControllerBase
         var dto = users.asDto;
 
         dto.Posts = (await _posts.GetListByUserId(user_id)).Select(x => x.asDto).ToList();
+
+        dto.Likes = (await _likes.GetListByUserId(user_id)).Select(x => x.asDto).ToList();
 
         return Ok(dto);
     }

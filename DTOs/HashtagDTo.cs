@@ -16,6 +16,12 @@ public record HashTagsDTO
     [JsonPropertyName("posts")]
     public List<PostsDTO> Posts { get; set; }
 
+    [JsonPropertyName("users")]
+    public List<UsersDTO> Users { get; set; }
+
+    [JsonPropertyName("likes")]
+    public List<LikesDTO> Likes { get; set; }
+
 
 }
 
