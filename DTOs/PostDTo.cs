@@ -37,8 +37,7 @@ public record PostsDTO
 
 public record PostsCreateDTO
 {
-    [JsonPropertyName("post_id")]
-    public long PostId { get; set; }
+
 
     [JsonPropertyName("post_type")]
     public string PostType { get; set; }
