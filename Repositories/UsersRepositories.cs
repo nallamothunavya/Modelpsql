@@ -31,8 +31,8 @@ public class UsersRepository : BaseRepository, IUsersRepository
     public async Task<Users> Create(Users Item)
     {
         var query = $@"INSERT INTO ""{TableNames.users}"" 
-        (user_name, mobile) 
-        VALUES ( @UserName, @Mobile) 
+        (user_name, mobile,created_at,date_of_birth) 
+        VALUES ( @UserName, @Mobile,@CreatedAt,@DateOfBirth) 
         RETURNING *";
 
         using (var con = NewConnection)

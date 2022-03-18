@@ -78,8 +78,8 @@ public class UsersController : ControllerBase
 
         var toUpdateUsers = existing with
         {
-            UserName = Data.UserName?.Trim()?.ToLower() ?? existing.UserName,
-            Mobile = existing.Mobile,
+           
+            Mobile = Data.Mobile ?? existing.Mobile,
            
         };
 

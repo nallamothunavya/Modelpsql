@@ -81,7 +81,7 @@ public class PostsController : ControllerBase
     {
         var existing = await _posts.GetById(post_id);
         if (existing is null)
-            return NotFound("No post found with given post number");
+            return NotFound("No post found with given post id");
 
         var didDelete = await _posts.Delete(post_id);
 

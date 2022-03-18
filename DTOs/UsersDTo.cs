@@ -58,17 +58,10 @@ public record UsersUpdateDTO
 {
 
 
-    [JsonPropertyName("User_name")]
-    public string UserName { get; set; }
-
-
-    [JsonPropertyName("date_of_birth")]
-    public DateTimeOffset DateOfBirth { get; set; }
 
     [JsonPropertyName("mobile")]
-    public long Mobile { get; set; }
+    public long? Mobile { get; set; }=null;
 
-   [JsonPropertyName("created_at")]
-    public DateTimeOffset CreatedAt { get; set; }
+   
 
 }
